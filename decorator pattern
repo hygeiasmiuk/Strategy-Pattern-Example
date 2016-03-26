@@ -1,0 +1,128 @@
+   class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("----義大利餐館菜單----");
+
+            Spaghetti normalSpaghetti = new NormalSpaghetti(); // 產生平民義大利麵
+            normalSpaghetti = new Ham(normalSpaghetti); // 加點火腿
+            normalSpaghetti = new Egg(normalSpaghetti); // 加點蛋
+            normalSpaghetti = new Cheese(normalSpaghetti); // 加點起司
+            Console.WriteLine("名稱:{0} 價錢:{1} 材料:{2}",
+                normalSpaghetti.GetName(),
+                normalSpaghetti.GetPrice(),
+                normalSpaghetti.GetDescription());
+            Console.ReadLine();
+        }
+        public class NormalSpaghetti : Spaghetti
+        {
+            public override string GetName()
+            {
+                return "Spaghetti";
+            }
+
+            public override string GetDescription()
+            {
+                return "義大利細麵";
+            }
+
+            public override int GetPrice()
+            {
+                return 100;
+            }
+        }
+        public abstract class CondimentDecorator : Spaghetti
+        {
+
+        }
+        public abstract class Spaghetti
+        {
+            public string name = "未知名稱";
+            public string description = "未知配料";
+
+            public abstract int GetPrice();
+
+            public virtual string GetName()
+            {
+                return this.name;
+            }
+
+            public virtual string GetDescription()
+            {
+                return this.description;
+            }
+        }
+        public class Ham : CondimentDecorator
+        {
+            Spaghetti spaghetti;
+
+            public Ham(Spaghetti pSpaghetti)
+            {
+                this.spaghetti = pSpaghetti;
+            }
+
+            public override string GetDescription()
+            {
+                return spaghetti.GetDescription() + ",火腿";
+            }
+
+            public override int GetPrice()
+            {
+                return spaghetti.GetPrice() + 38;
+            }
+
+            public override string GetName()
+            {
+                return spaghetti.GetName();
+            }
+        }
+        public class Egg : CondimentDecorator
+        {
+            Spaghetti spaghetti;
+
+            public Egg(Spaghetti pSpaghetti)
+            {
+                this.spaghetti = pSpaghetti;
+            }
+
+            public override string GetDescription()
+            {
+                return spaghetti.GetDescription() + ",蛋";
+            }
+
+            public override int GetPrice()
+            {
+                return spaghetti.GetPrice() + 5;
+            }
+
+            public override string GetName()
+            {
+                return spaghetti.GetName();
+            }
+        }
+
+        public class Cheese : CondimentDecorator
+        {
+            Spaghetti spaghetti;
+
+            public Cheese(Spaghetti pSpaghetti)
+            {
+                this.spaghetti = pSpaghetti;
+            }
+
+            public override string GetDescription()
+            {
+                return spaghetti.GetDescription() + ",起司";
+            }
+
+            public override int GetPrice()
+            {
+                return spaghetti.GetPrice() + 20;
+            }
+
+            public override string GetName()
+            {
+                return spaghetti.GetName();
+            }
+        }
+    }
